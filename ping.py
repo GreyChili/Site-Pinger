@@ -3,30 +3,42 @@ import os
 import gui
 
 
-def ping(_server_ip, _url):
+def ping(_server_ip):
     rep = os.system('ping ' + _server_ip)  # Ping ip adress
 
     # Give output
     if rep == 0:
-        gui.updateStatus(_url + ' is responding')
+        return True
     else:
-        gui.updateStatus(_url + ' is not responding')
+        return False
 
     return
 
 
-def getIP():
-    gui.updateStatus(None)
-    url = gui.urlEntered.get()
-
+def getIP(_url):
     socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # Create a TCP/IP socket
 
     try:
-        server_ip = socket.gethostbyname(url)  # Get ip adress from url
+        server_ip = socket.gethostbyname(_url)  # Get ip adress from url
     except socket.gaierror:
-        gui.updateStatus('Error: IP not found')
+        server_ip = 'Error: IP not found'
 
-    ping(server_ip, url)  # Ping
+    return server_ip
 
-def updateSiteInfo():
-    pass
+
+def getUserInput():
+
+    url = gui.urlEntered.get()
+
+    serverIP = getIP(url)
+
+    statusMsg = ''
+
+    if ping(serverIP):
+        statusMsg = url + ' is responding'
+    elif not ping(serverIP):
+        statusMsg = url + ' is not responding'
+    else:
+        statusMsg = None
+
+    gui.updateInfo(statusMsg, url, serverIP)
