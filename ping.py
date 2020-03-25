@@ -25,6 +25,7 @@ def ping(_server_ip, _url):
     
 
 def getIP():
+    status.configure(text='STATUS')
     url = urlEntered.get()
 
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # Create a TCP/IP socket
