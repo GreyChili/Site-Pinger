@@ -1,6 +1,13 @@
 import tkinter as tk
 import ping
 
+def updateStatus(newStatus):
+
+    if type(newStatus) == str:
+        status.configure(text=newStatus)
+    else:
+        status.configure(text='STATUS')
+
 # Create a window
 window = tk.Tk()
 window.title('Site Pinger')
