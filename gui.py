@@ -15,7 +15,7 @@ def updateInfo(newStatus, newURL, newIP):
         siteURL.configure(text='URL')
 
     if type(newIP) == str:
-        siteIP.configure(text='IP: ' + newIP)
+        siteIP.configure(text=newIP)
     else:
         siteIP.configure(text='IP')
 
@@ -23,20 +23,20 @@ def updateInfo(newStatus, newURL, newIP):
 # Create a window
 window = tk.Tk()
 window.title('Site Pinger')
-window.minsize(250, 100)
+window.minsize(250, 125)
 
 title = tk.Label(window, text='ENTER URL')  # Title
 title.pack()
 urlEntered = tk.Entry(window)  # URL Entry
 urlEntered.pack()
+urlEntered.focus_set()
 pingBtn = tk.Button(window, text='PING', command=ping.getUserInput)  # Button
 pingBtn.pack()
-pingBtn.focus_set()
-status = tk.Label(window, width=20, text='STATUS')  # Status of site
+status = tk.Label(window, width=25, text='STATUS')  # Status of site
 status.pack()
-siteURL = tk.Label(window, width=20, text='URL')  # URL of site
+siteURL = tk.Label(window, width=25, text='URL')  # URL of site
 siteURL.pack()
-siteIP = tk.Label(window, width=20, text='IP')  # IP of site
+siteIP = tk.Label(window, width=25, text='IP')  # IP of site
 siteIP.pack()
 
 window.mainloop()
