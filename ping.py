@@ -1,12 +1,13 @@
 import socket
 import os
+import updateGui
+import siteInfo as info
 import gui
 
 url = ''
 server_ip = ''
+site = None
 rep = None
-s = None
-
 
 
 def ping(_server_ip, _url):
@@ -14,29 +15,29 @@ def ping(_server_ip, _url):
 
     # Give output
     if rep == 0:
-        updateStatus(_url + ' is responding')
+        updateGui.updateStatus(_url + ' is responding')
     else:
-        updateStatus(_url + ' is not responding')
+        updateGui.updateStatus(_url + ' is not responding')
 
-    
+    return
+
 
 def getIP():
-    updateStatus(None)
+    global url
+    global server_ip
+    updateGui.updateStatus(None)
     url = gui.urlEntered.get()
 
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # Create a TCP/IP socket
+    socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # Create a TCP/IP socket
 
     try:
         server_ip = socket.gethostbyname(url)  # Get ip adress from url
     except socket.gaierror:
-        updateStatus('Error: IP not found')
+        updateGui.updateStatus('Error: IP not found')
 
-    ping(server_ip, url) # Ping
+    ping(server_ip, url)  # Ping
+    updateSiteInfo() # Update site info on GUI
 
-def updateStatus(statusMsg):
-    if type(statusMsg) == str:
-        gui.status.configure(text=statusMsg)
-    else:
-        pass
-
-    return
+def updateSiteInfo():
+    global site
+    site = info.Website(url, server_ip)
