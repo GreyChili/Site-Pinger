@@ -1,7 +1,6 @@
-import tkinter as tk
 import socket
-import sys
 import os
+import gui
 
 url = ''
 server_ip = ''
@@ -15,37 +14,29 @@ def ping(_server_ip, _url):
 
     # Give output
     if rep == 0:
-        statusMsg = _url + ' is up'
+        updateStatus(_url + ' is responding')
     else:
-        statusMsg = _url + ' is down'
-
-    status.configure(text=statusMsg)
-    print(statusMsg)
+        updateStatus(_url + ' is not responding')
 
     
 
 def getIP():
-    status.configure(text='STATUS')
-    url = urlEntered.get()
+    updateStatus(None)
+    url = gui.urlEntered.get()
 
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # Create a TCP/IP socket
-    server_ip = socket.gethostbyname(url)  # Get ip adress from url
+
+    try:
+        server_ip = socket.gethostbyname(url)  # Get ip adress from url
+    except socket.gaierror:
+        updateStatus('Error: IP not found')
 
     ping(server_ip, url) # Ping
 
+def updateStatus(statusMsg):
+    if type(statusMsg) == str:
+        gui.status.configure(text=statusMsg)
+    else:
+        pass
 
-# Create a window
-window = tk.Tk()
-window.title('Site Pinger')
-window.minsize(250, 100)
-
-title = tk.Label(window, text='ENTER URL') # Title
-title.pack()
-urlEntered = tk.Entry(window) # URL Entry
-urlEntered.pack()
-pingBtn = tk.Button(window, text='PING', command=getIP) # Button
-pingBtn.pack()
-status = tk.Label(window, width=20, text='STATUS') # Status of site
-status.pack()
-
-window.mainloop()
+    return
