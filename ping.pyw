@@ -28,9 +28,14 @@ def getIP(_url):
 
 def getUserInput():
 
-    url = gui.urlEntered.get()
+    return gui.urlEntered.get()
 
+def Main():
+    url = getUserInput()
+    
     serverIP = getIP(url)
+    
+    getIP(url)
 
     statusMsg = ''
 

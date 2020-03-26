@@ -30,7 +30,7 @@ title.pack()
 urlEntered = tk.Entry(window)  # URL Entry
 urlEntered.pack()
 urlEntered.focus_set()
-pingBtn = tk.Button(window, text='PING', command=ping.getUserInput)  # Button
+pingBtn = tk.Button(window, text='PING', command=ping.Main)  # Button
 pingBtn.pack()
 status = tk.Label(window, width=25, text='STATUS')  # Status of site
 status.pack()
