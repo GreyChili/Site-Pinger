@@ -10,7 +10,7 @@ def updateInfo(newStatus, newURL, newIP):
         status.configure(text='STATUS')
 
     if type(newURL) == str:
-        siteURL.configure(text='URL: ' + newURL)
+        siteURL.configure(text='URL ENTERED: ' + newURL)
     else:
         siteURL.configure(text='URL')
 

@@ -31,6 +31,9 @@ def getUserInput():
     return gui.urlEntered.get()
 
 def Main():
+
+    gui.updateInfo(None, None, None)
+
     url = getUserInput()
     
     serverIP = getIP(url)
